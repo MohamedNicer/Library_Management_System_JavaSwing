@@ -97,5 +97,9 @@ public class Book {
     public void setBorrowcopies(int borrowcopies) {
         this.borrowcopies = borrowcopies;
     }
+    public String toString2(){
+        return title+"<N/>"+author+"<N/>"+publisher+"<N/>"+address+"<N/>"+String.valueOf(qty)+"" +
+                "<N/>"+String.valueOf(price)+"<N/>"+String.valueOf(borrowcopies);
+    }
 }
 

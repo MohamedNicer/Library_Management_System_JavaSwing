@@ -7,12 +7,12 @@ public class Main {
         database = new Database();
         System.out.println("Welcome to the Library!");
         int num;
-        System.out.println("0.Exit\n1. Login\n2. Sign Up");
+        System.out.println("0. Exit\n1. Login\n2. Sign Up");
         sc = new Scanner(System.in);
         num = sc.nextInt();
         switch (num){
-            case 1: login();
-            case 2: signup();
+            case 1: login();break;
+            case 2: signup();break;
         }
     }
 
