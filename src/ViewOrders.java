@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class ViewOrders {
+public class ViewOrders implements IOOperation{
+    @Override
+    public void operation(Database database, User user) {
+
+    }
 }

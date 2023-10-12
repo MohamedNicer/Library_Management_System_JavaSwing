@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class DeleteBook {
+public class DeleteBook implements IOOperation{
+    @Override
+    public void operation(Database database, User user) {
+
+    }
 }

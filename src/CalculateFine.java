@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class CalculateFine {
+public class CalculateFine implements IOOperation{
+    @Override
+    public void operation(Database database, User user) {
+
+    }
 }

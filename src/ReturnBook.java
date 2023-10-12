@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class ReturnBook {
+public class ReturnBook implements IOOperation{
+    @Override
+    public void operation(Database database, User user) {
+
+    }
 }

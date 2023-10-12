@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class PlaceOrder {
+public class PlaceOrder implements IOOperation{
+    @Override
+    public void operation(Database database, User user) {
+
+    }
 }
