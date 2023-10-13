@@ -1,13 +1,17 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Database {
     private ArrayList<User> users = new ArrayList<User>();
     private ArrayList<String> usernames = new ArrayList<String>();
     private ArrayList<Book> books = new ArrayList<Book>();
     private ArrayList<String> booktitles = new ArrayList<String>();
+    private ArrayList<Order> orders = new ArrayList<Order>();
     private File usersfile = new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data/Users");
     private File booksfile = new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data/Books");
+    private File ordersfile = new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data/Orders");
+
     private File folder = new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data");
 
     public Database() {
@@ -28,6 +32,14 @@ public class Database {
                 e.printStackTrace();
             }
         }
+        if (!ordersfile.exists()) {
+            try {
+                ordersfile.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        getOrders();
         getUsers();
         getBooks();
     }
@@ -139,10 +151,12 @@ public class Database {
             }
         }
     }
-    public ArrayList<Book> getAllBooks(){
+
+    public ArrayList<Book> getAllBooks() {
         return books;
     }
-    public Book parseBook(String str){
+
+    public Book parseBook(String str) {
         String[] strings = str.split("<N/>");
         Book book = new Book();
         book.setTitle(strings[0]);
@@ -154,5 +168,100 @@ public class Database {
         book.setBorrowcopies(Integer.parseInt(strings[6]));
         return book;
     }
+
+    public int getBook(String booktitle) {
+        int index = -1;
+        for (Book book : books) {
+            if (book.getTitle().matches(booktitle)) {
+                index=books.indexOf(book);
+            }
+        }
+        return index;
+    }
+    public Book getBook(int index){
+        return books.get(index);
+    }
+    public void deleteBook(int i ){
+        books.remove(i);
+        booktitles.remove(i);
+        saveBooks();
+    }
+    public void deleteAllData(){
+        if (usersfile.exists()) {
+            try {
+                usersfile.delete();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (booksfile.exists()) {
+            try {
+                booksfile.delete();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (ordersfile.exists()) {
+            try {
+                ordersfile.delete();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void addOrder(Order order){
+        orders.add(order);
+        saveOrders();
+    }
+    public void saveOrders() {
+        StringBuilder text1 = new StringBuilder();
+        for (Order order : orders) {
+            text1.append(order.toString2()).append("<NewOrder/>\n");
+        }
+        try {
+            PrintWriter printWriter = new PrintWriter(ordersfile);
+            printWriter.print(text1);
+            printWriter.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+    }
+    private void getOrders() {
+        StringBuilder text = new StringBuilder();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(ordersfile));
+            String str;
+            while ((str = bufferedReader.readLine()) != null) {
+                text.append(str);
+            }
+            bufferedReader.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        if (!text.toString().matches("") || (!text.isEmpty())) {
+            String[] s1 = text.toString().split("<NewOrder/>");
+            for (String s2 : s1) {
+                Order order = parseOrder(s2);
+                orders.add(order);
+                }
+            }
+        }
+    public Order parseOrder(String str) {
+        String[] strings = str.split("<N/>");
+        Order order = new Order(getUserByName(strings[0]), books.get(getBook(strings[1])),
+                        Integer.parseInt(strings[2]),Double.parseDouble(strings[3]));
+        return order;
+    }
+    public User getUserByName(String name){
+        User user = new Customer("");
+        for(User u: users){
+            if(u.getName().matches(name)) {
+                user = u;
+                break;
+            }
+        }
+        return user;
+    }
 }
+
 

@@ -7,22 +7,28 @@ public class AddBook implements IOOperation{
         Scanner scanner = new Scanner(System.in);
         Book book = new Book();
         System.out.println("Enter Book's title: ");
-        book.setTitle(scanner.next());
-        System.out.println("Enter Book's author: ");
-        book.setAuthor(scanner.next());
-        System.out.println("Enter Book's publisher: ");
-        book.setPublisher(scanner.next());
-        System.out.println("Enter Book's Collection address: ");
-        book.setAddress(scanner.next());
-        System.out.println("Enter Book's Quantity in Inventory: ");
-        book.setQty(scanner.nextInt());
-        System.out.println("Enter Book's Price: ");
-        book.setPrice(scanner.nextDouble());
-        System.out.println("Enter Book's Number of copies to borrow: ");
-        book.setBorrowcopies(scanner.nextInt());
-        database.AddBook(book);
-        System.out.println("Book Added Successfully!\n");
-        user.menu(database,user);
-        scanner.close();
+        String title = scanner.next();
+        if (database.getBook(title)>-1){
+            System.out.println("Book Already Exists!\n");
+            user.menu(database, user);
+        }else {
+            book.setTitle(title);
+            System.out.println("Enter Book's author: ");
+            book.setAuthor(scanner.next());
+            System.out.println("Enter Book's publisher: ");
+            book.setPublisher(scanner.next());
+            System.out.println("Enter Book's Collection address: ");
+            book.setAddress(scanner.next());
+            System.out.println("Enter Book's Quantity in Inventory: ");
+            book.setQty(scanner.nextInt());
+            System.out.println("Enter Book's Price: ");
+            book.setPrice(scanner.nextDouble());
+            System.out.println("Enter Book's Number of copies to borrow: ");
+            book.setBorrowcopies(scanner.nextInt());
+            database.AddBook(book);
+            System.out.println("Book Added Successfully!\n");
+            user.menu(database,user);
+            scanner.close();
+        }
     }
 }
