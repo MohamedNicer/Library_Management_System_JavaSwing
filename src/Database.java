@@ -209,9 +209,11 @@ public class Database {
             }
         }
     }
-    public void addOrder(Order order){
+    public void addOrder(Order order, Book book, int bookindex){
         orders.add(order);
+        books.add(bookindex,book);
         saveOrders();
+        saveBooks();
     }
     public void saveOrders() {
         StringBuilder text1 = new StringBuilder();
@@ -261,6 +263,9 @@ public class Database {
             }
         }
         return user;
+    }
+    public ArrayList<Order> getAllOrders(){
+        return orders;
     }
 }
 

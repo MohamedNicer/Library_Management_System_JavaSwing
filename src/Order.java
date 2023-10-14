@@ -4,6 +4,9 @@ public class Order {
     private int qty;
     private double price;
 
+    public Order() {
+    }
+
     public Order(User user, Book book, int qty, double price) {
         this.user = user;
         this.book = book;
