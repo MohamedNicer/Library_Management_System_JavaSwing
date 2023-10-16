@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -8,9 +10,11 @@ public class Database {
     private ArrayList<Book> books = new ArrayList<Book>();
     private ArrayList<String> booktitles = new ArrayList<String>();
     private ArrayList<Order> orders = new ArrayList<Order>();
+    private ArrayList<Borrowing> borrowings = new ArrayList<Borrowing>();
     private File usersfile = new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data/Users");
     private File booksfile = new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data/Books");
     private File ordersfile = new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data/Orders");
+    private File borrowingsfile =  new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data/Borrowings");
 
     private File folder = new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data");
 
@@ -39,9 +43,17 @@ public class Database {
                 e.printStackTrace();
             }
         }
+        if (!borrowingsfile.exists()) {
+            try {
+                borrowingsfile.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         getOrders();
         getUsers();
         getBooks();
+        getBorrowings();
     }
 
     public void AddUser(User user) {
@@ -208,6 +220,13 @@ public class Database {
                 e.printStackTrace();
             }
         }
+        if (borrowingsfile.exists()) {
+            try {
+                borrowingsfile.delete();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     public void addOrder(Order order, Book book, int bookindex){
         orders.add(order);
@@ -264,8 +283,76 @@ public class Database {
         }
         return user;
     }
+    public boolean userExists(String name){
+        boolean f = false;
+        for(User u: users){
+            if(u.getName().toLowerCase().matches(name.toLowerCase())) {
+                f = true;
+                break;
+            }
+        }
+        return f;
+    }
     public ArrayList<Order> getAllOrders(){
         return orders;
+    }
+    public void saveBorrowings() {
+        StringBuilder text1 = new StringBuilder();
+        for (Borrowing borrowing : borrowings) {
+            text1.append(borrowing.toString2()).append("<NewBorrowing/>\n");
+        }
+        try {
+            PrintWriter printWriter = new PrintWriter(borrowingsfile);
+            printWriter.print(text1);
+            printWriter.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+    }
+    private void getBorrowings(){
+        StringBuilder text = new StringBuilder();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(borrowingsfile));
+            String str;
+            while ((str = bufferedReader.readLine()) != null) {
+                text.append(str);
+            }
+            bufferedReader.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+        if (!text.toString().matches("") || (!text.isEmpty())) {
+            String[] s1 = text.toString().split("<NewBorrowing/>");
+            for (String s2 : s1) {
+                Borrowing borrowing = parseBorrowing(s2);
+                borrowings.add(borrowing);
+            }
+        }
+    }
+    private Borrowing parseBorrowing(String str){
+        String[] strings = str.split("<N/>");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate start = LocalDate.parse(strings[0],formatter);
+        LocalDate finish = LocalDate.parse(strings[1], formatter);
+        User user = getUserByName(strings[3]);
+        Book book = getBook(getBook(strings[4]));
+        Borrowing borrowing = new Borrowing(start,finish,user,book);
+        return borrowing;
+    }
+    public void borrowBook(Borrowing borrowing, Book book, int index){
+        borrowings.add(borrowing);
+        books.set(index,book);
+        saveBorrowings();
+        saveBooks();
+    }
+    public ArrayList<Borrowing> getAllBorrowings(){
+        return borrowings;
+    }
+    public void returnBook(Borrowing borrowing, Book book, int index){
+        borrowings.remove(borrowing);
+        books.set(index,book);
+        saveBorrowings();
+        saveBooks();
     }
 }
 

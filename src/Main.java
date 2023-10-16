@@ -17,8 +17,12 @@ public class Main {
     }
 
     private static void signup() {
-        System.out.println("Enter Full Name:");
+        System.out.println("Enter Name:");
         String name = sc.next();
+        if(database.userExists(name)){
+            System.out.println("User with this name already exists!");
+            signup();
+        }
         System.out.println("Enter Phone Number:");
         String phonenumber = sc.next();
         System.out.println("Enter Email:");

@@ -13,7 +13,7 @@ public class Borrowing {
     public Borrowing(User user, Book book) {
         start = LocalDate.now();
         finish = start.plusDays(14);
-        daysleft = Period.between(start, finish).getDays();
+        daysleft = Period.between(finish, LocalDate.now()).getDays();
         this.book = book;
         this.user = user;
     }
@@ -36,7 +36,7 @@ public class Borrowing {
     }
 
     public int getDaysleft() {
-        return Period.between(start, finish).getDays();
+        return Period.between(finish, LocalDate.now()).getDays();
     }
 
     public User getUser() {
@@ -58,6 +58,10 @@ public class Borrowing {
     @Override
     public String toString() {
         return "Borrowing time: " + start + "InExpiry date: " + finish + "\nDays left: " + daysleft;
+    }
+    public String toString2(){
+        return getStart() + "<N/>" + getFinish() + "<N/>" + getDaysleft() + "<N/>" + user.getName() +
+                "<N/>" + book.getTitle() + "<N/>";
     }
 }
 
