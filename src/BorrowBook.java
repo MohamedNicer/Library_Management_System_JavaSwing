@@ -22,7 +22,7 @@ public class BorrowBook implements IOOperation{
                     Borrowing borrowing = new Borrowing(user,book);
                     book.setBorrowcopies(book.getBorrowcopies()-1);
                     database.borrowBook(borrowing,book,index);
-                    System.out.println("The book with title: "+ booktitle + "should be " +
+                    System.out.println("\nThe book with title: "+ booktitle + " should be " +
                             "returned in the next 14 days\n" + "Expiry date: " +
                             borrowing.getFinish() + "\nEnjoy it\n");
                 }else {

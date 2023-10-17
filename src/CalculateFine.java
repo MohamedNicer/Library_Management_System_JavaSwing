@@ -12,16 +12,16 @@ public class CalculateFine implements IOOperation{
                     borrowing.getUser().getName().matches(user.getName())){
                 if(borrowing.getDaysleft()>0){
                     System.out.println("You're late!\n" + "As of today! Your fine is: " +
-                            borrowing.daysleft*20 + "\n" );
+                            Math.abs(borrowing.daysleft*20) + "\n" );
                 } else {
-                    System.out.println("You've nothing additional to pay!");
+                    System.out.println("You've nothing additional to pay!\n");
                 }
                 g = false;
                 break;
             }
         }
         if(g){
-            System.out.println("You didn't borrow this book!");
+            System.out.println("You didn't borrow this book!\n");
         }
         user.menu(database, user);
     }
