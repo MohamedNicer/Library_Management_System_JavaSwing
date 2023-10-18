@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import javax.swing.*;
 
 public class Customer extends User{
     public Customer(String name) {
@@ -29,18 +29,15 @@ public class Customer extends User{
 
     @Override
     public void menu(Database database, User user) {
-        System.out.println("1. View Books");
-        System.out.println("2. Search");
-        System.out.println("3. Place Order");
-        System.out.println("4. Borrow Book");
-        System.out.println("5. Calculate Fine");
-        System.out.println("6. Return Book");
-        System.out.println("7. Exit");
-
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        this.operations[n-1].operation(database, user);
-        sc.close();
+        String[] option = new String[7];
+        option[0] = "View Books";
+        option[1] = "Search";
+        option[2] = "Place Order";
+        option[3] = "Borrow Book";
+        option[4] = "Calculate Fine";
+        option[5] = "Return Book";
+        option[6] = "Exit";
+        JFrame frame = frame(option,database,user);
     }
     @Override
     public String toString() {

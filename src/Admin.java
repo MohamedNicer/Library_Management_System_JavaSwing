@@ -1,5 +1,4 @@
-import java.util.Scanner;
-
+import javax.swing.*;
 public class Admin extends User{
     public Admin(String name){
         super(name);
@@ -29,18 +28,15 @@ public class Admin extends User{
 
     @Override
     public void menu(Database database, User user) {
-        System.out.println("1. View Books");
-        System.out.println("2. Add Book");
-        System.out.println("3. Delete Book");
-        System.out.println("4. Search");
-        System.out.println("5. Delete All Data");
-        System.out.println("6. View Orders");
-        System.out.println("7. Exit");
-
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        this.operations[n-1].operation(database, user);
-        sc.close();
+        String[] option = new String[7];
+        option[0] = "View Books";
+        option[1] = "Add Book";
+        option[2] = "Delete Book";
+        option[3] = "Search";
+        option[4] = "Delete All Data";
+        option[5] = "View Orders";
+        option[6] = "Exit";
+        JFrame frame = frame(option,database,user);
     }
 
     @Override
