@@ -70,6 +70,9 @@ public abstract class User {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     operations[index].operation(database,user);
+                    if (strings[index].matches("Exit") || strings[index].matches("Delete All Data")){
+                        jframe.dispose();
+                    }
                 }
             });
             panel.add(button);

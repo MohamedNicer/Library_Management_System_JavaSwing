@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Database {
-    private ArrayList<User> users = new ArrayList<User>();
-    private ArrayList<String> usernames = new ArrayList<String>();
-    private ArrayList<Book> books = new ArrayList<Book>();
-    private ArrayList<String> booktitles = new ArrayList<String>();
-    private ArrayList<Order> orders = new ArrayList<Order>();
-    private ArrayList<Borrowing> borrowings = new ArrayList<Borrowing>();
+    private ArrayList<User> users;
+    private ArrayList<String> usernames;
+    private ArrayList<Book> books;
+    private ArrayList<String> booktitles;
+    private ArrayList<Order> orders;
+    private ArrayList<Borrowing> borrowings;
     private File usersfile = new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data/Users");
     private File booksfile = new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data/Books");
     private File ordersfile = new File("/Users/mohamednicer/Documents/IntellijIDEA/Library_Management_System_JavaSwing/data/Orders");
@@ -50,6 +50,12 @@ public class Database {
                 e.printStackTrace();
             }
         }
+        users = new ArrayList<User>();
+        usernames = new ArrayList<String>();
+        books = new ArrayList<Book>();
+        booktitles = new ArrayList<String>();
+        orders = new ArrayList<Order>();
+        borrowings = new ArrayList<Borrowing>();
         getOrders();
         getUsers();
         getBooks();

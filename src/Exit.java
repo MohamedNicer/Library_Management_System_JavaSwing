@@ -1,56 +1,170 @@
-import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Exit implements IOOperation{
-    Scanner scanner;
+
     Database database;
-    User user;
     @Override
     public void operation(Database database, User user) {
-        this.database = database;
-        this.user = user;
-        System.out.println("Are you sure?\n" + "1.Yes\n2.Main Menu");
-        scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
-        if(choice==1){
-            System.out.println("0. Exit\n1. Login\n2. Sign Up");
-            int num = scanner.nextInt();
-            switch (num){
-                case 1: login();break;
-                case 2: signup();break;
+        JFrame frame = Main.frame(500,300);
+
+        this.database = new Database();
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3,2,50,50));
+        panel.setBorder(BorderFactory.createEmptyBorder(10,15,20,15));
+
+        JLabel title = Main.label("Welcome to the library!");
+        title.setBorder(BorderFactory.createEmptyBorder(15 ,15,15,15));
+        title.setFont(new Font("Arial",Font.BOLD,20));
+        frame.getContentPane().add(title,BorderLayout.NORTH);
+
+        JLabel label = Main.label("Phone Number:");
+        JLabel label1 = Main.label("Email:");
+        JTextField phonenumber = Main.textField();
+        JTextField email = Main.textField();
+        JButton login = Main.button("Login");
+        JButton signup = Main.button("Sign Up");
+
+        login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (phonenumber.getText().toString().matches("")){
+                    JOptionPane.showMessageDialog(new JFrame(),"Phone Number " +
+                            "mustn't be left empty!");
+                }
+                if (email.getText().toString().matches("")){
+                    JOptionPane.showMessageDialog(new JFrame(),"Email " +
+                            "mustn't be left empty!");
+                }
+                login(phonenumber.getText().toString(),email.getText().toString(),frame);
             }
+        });
+        signup.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                signup();
+                frame.dispose();
+            }
+        });
 
-        } else user.menu(database, user);
-    }
-    private  void signup() {
-        System.out.println("Enter Full Name:");
-        String name = scanner.next();
-        System.out.println("Enter Phone Number:");
-        String phonenumber = scanner.next();
-        System.out.println("Enter Email:");
-        String email = scanner.next();
-        System.out.println("1. Admin\n2. Customer");
-        User user;
-        int n = scanner.nextInt();
-        if (n==1){
-            user = new Admin(name,email,phonenumber);
-        } else{
-            user = new Customer(name,email,phonenumber);
-        }
-        database.AddUser(user);
-        user.menu(database,user);
-    }
+        panel.add(label);
+        panel.add(phonenumber);
+        panel.add(label1);
+        panel.add(email);
+        panel.add(login);
+        panel.add(signup);
 
-    private void login(){
-        System.out.println("Enter Phone Number:");
-        String phonenumber = scanner.next();
-        System.out.println("Enter Email:");
-        String email = scanner.next();
+        frame.getContentPane().add(panel,BorderLayout.CENTER);
+    }
+    private void signup() {
+        JFrame frame = Main.frame(500,400);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(5,2,15,15));
+        panel.setBorder(BorderFactory.createEmptyBorder(10,15,20,15));
+
+        JLabel title = Main.label("Sign Up");
+        title.setBorder(BorderFactory.createEmptyBorder(15 ,15,15,15));
+        title.setFont(new Font("Arial",Font.BOLD,20));
+        frame.getContentPane().add(title,BorderLayout.NORTH);
+
+        JLabel label = Main.label("Name:");
+        JLabel label1 = Main.label("Phone Number:");
+        JLabel label2 = Main.label("Email:");
+        JTextField name = Main.textField();
+        JTextField phonenumber = Main.textField();
+        JTextField email = Main.textField();
+        JRadioButton admin = Main.radioButton("Admin");
+        JRadioButton customer = Main.radioButton("Customer");
+        JButton createuser = Main.button("Create Account");
+        JButton cancel = Main.button("Cancel");
+
+        panel.add(label);
+        panel.add(name);
+        panel.add(label1);
+        panel.add(phonenumber);
+        panel.add(label2);
+        panel.add(email);
+        panel.add(admin);
+        panel.add(customer);
+        panel.add(createuser);
+        panel.add(cancel);
+
+        admin.addActionListener(e -> {
+            if (admin.isSelected()){
+                admin.setSelected(true);
+            }
+        });
+        customer.addActionListener(e -> {
+            if (customer.isSelected()){
+                customer.setSelected(true);
+            }
+        });
+        createuser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(database.userExists(name.getText().toString())){
+                    JOptionPane.showMessageDialog(new JFrame(),"Username" +
+                            " Already Exists!\nTry Another One!");
+                    return;
+                }
+                if(name.getText().toString().matches("")){
+                    JOptionPane.showMessageDialog(new JFrame(),"Username" +
+                            " can't be left empty!");
+                    return;
+                }
+                if(phonenumber.getText().toString().matches("")){
+                    JOptionPane.showMessageDialog(new JFrame(),"Phone Number" +
+                            " can't be left empty!");
+                    return;
+                }
+                if(email.getText().toString().matches("")){
+                    JOptionPane.showMessageDialog(new JFrame(),"Email" +
+                            " can't be left empty!");
+                    return;
+                }
+                if(!admin.isSelected() && !customer.isSelected()){
+                    JOptionPane.showMessageDialog(new JFrame(),"You" +
+                            " must choose an account type!");
+                    return;
+                }
+                User user;
+                if (admin.isSelected()){
+                    user = new Admin(name.getText().toString(),
+                            email.getText().toString(),
+                            phonenumber.getText().toString());
+                } else{
+                    user = new Customer(name.getText().toString(),
+                            email.getText().toString(),
+                            phonenumber.getText().toString());
+                }
+                frame.dispose();
+                database.AddUser(user);
+                user.menu(database,user);
+            }
+        });
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+        frame.getContentPane().add(panel,BorderLayout.CENTER);
+        frame.setVisible(true);
+    }
+    private void login(String phonenumber, String email,JFrame frame){
         int n = database.login(phonenumber,email);
         if (n != -1){
             User user = database.getUser(n);
             user.menu(database,user);
+            frame.dispose();
         }else {
-            System.out.println("User doesn't exist!");
+            JOptionPane.showMessageDialog(new JFrame(),"Phone Number And/Or" +
+                    " Email Wrong!");
         }
     }
-}
+    }
+
