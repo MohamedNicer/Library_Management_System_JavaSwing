@@ -23,13 +23,13 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book Title='" + title + '\'' + "\n" +
-                "Book Author='" + author + '\'' + "\n" +
-                "Book Publisher='" + publisher + '\'' + "\n" +
-                "Book Collection Address='" + address + '\'' + "\n" +
-                "Qty=" + String.valueOf(qty) + "\n" +
-                "Price=" + String.valueOf(price) + "\n" +
-                "Borrowing copies=" + String.valueOf(borrowcopies)
+        return "Book Title:" + title +"\n" +
+                "Book Author:" + author + "\n" +
+                "Book Publisher:" + publisher +"\n" +
+                "Book Collection Address:" + address +"\n" +
+                "Qty:" + String.valueOf(qty) + "\n" +
+                "Price:" + String.valueOf(price) + "\n" +
+                "Borrowing copies:" + String.valueOf(borrowcopies)
                 ;
     }
 

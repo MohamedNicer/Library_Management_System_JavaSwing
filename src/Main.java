@@ -151,7 +151,6 @@ public class Main {
             }
         });
         frame.getContentPane().add(panel,BorderLayout.CENTER);
-        frame.setVisible(true);
     }
     private static void login(String phonenumber, String email,JFrame frame){
         int n = database.login(phonenumber,email);
