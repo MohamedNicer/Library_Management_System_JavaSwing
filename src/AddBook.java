@@ -15,6 +15,7 @@ public class AddBook implements IOOperation{
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(8,2,15,15));
         panel.setBorder(BorderFactory.createEmptyBorder(0,30,30,30));
+        panel.setBackground(null);
 
         JLabel label = Main.label("Book Title:");
         JLabel label1 = Main.label("Book Author:");

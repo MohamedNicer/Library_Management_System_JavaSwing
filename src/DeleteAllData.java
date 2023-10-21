@@ -6,14 +6,15 @@ import java.awt.event.ActionListener;
 public class DeleteAllData implements IOOperation{
     @Override
     public void operation(Database database, User user) {
-        JFrame frame = Main.frame(600,170);
+        JFrame frame = Main.frame(600,150);
         frame.setLayout(new BorderLayout());
 
         JLabel title = Main.title("Are you sure?");
         frame.getContentPane().add(title,BorderLayout.NORTH);
 
-        JPanel panel = new JPanel(new GridLayout(2,2,15,15));
-        panel.setBorder(BorderFactory.createEmptyBorder(0,20,20,20));
+        JPanel panel = new JPanel(new GridLayout(1,2,15,15));
+        panel.setBorder(BorderFactory.createEmptyBorder(0,30,20,30));
+        panel.setBackground(null);
 
         JButton proceed = Main.button("Yes, Continue");
         JButton cancel = Main.button("Cancel");

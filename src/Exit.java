@@ -15,6 +15,7 @@ public class Exit implements IOOperation{
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3,2,50,50));
         panel.setBorder(BorderFactory.createEmptyBorder(10,15,20,15));
+        panel.setBackground(null);
 
         JLabel title = Main.label("Welcome to the library!");
         title.setBorder(BorderFactory.createEmptyBorder(15 ,15,15,15));
@@ -65,12 +66,14 @@ public class Exit implements IOOperation{
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5,2,15,15));
         panel.setBorder(BorderFactory.createEmptyBorder(10,15,20,15));
+        panel.setBackground(null);
 
         JLabel title = Main.label("Sign Up");
         title.setBorder(BorderFactory.createEmptyBorder(15 ,15,15,15));
         title.setFont(new Font("Arial",Font.BOLD,20));
         frame.getContentPane().add(title,BorderLayout.NORTH);
-
+        title.setForeground(Color.decode("#4169E1"));
+        
         JLabel label = Main.label("Name:");
         JLabel label1 = Main.label("Phone Number:");
         JLabel label2 = Main.label("Email:");

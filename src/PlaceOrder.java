@@ -15,6 +15,7 @@ public class PlaceOrder implements IOOperation{
 
         JPanel panel = new JPanel(new GridLayout(3,2,15,15));
         panel.setBorder(BorderFactory.createEmptyBorder(0,20,20,20));
+        panel.setBackground(null);
 
         JLabel label = Main.label("Book Title:");
         JTextField book_title = Main.textField();

@@ -11,11 +11,13 @@ public class Main {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3,2,50,50));
         panel.setBorder(BorderFactory.createEmptyBorder(10,15,20,15));
+        panel.setBackground(null);
 
         JLabel title = label("Welcome to the library!");
         title.setBorder(BorderFactory.createEmptyBorder(15 ,15,15,15));
         title.setFont(new Font("Arial",Font.BOLD,20));
         frame.getContentPane().add(title,BorderLayout.NORTH);
+        title.setForeground(Color.decode("#4169E1"));
 
         JLabel label = label("Phone Number:");
         JLabel label1 = label("Email:");
@@ -63,11 +65,13 @@ public class Main {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5,2,15,15));
         panel.setBorder(BorderFactory.createEmptyBorder(10,15,20,15));
+        panel.setBackground(null);
 
         JLabel title = label("Sign Up");
         title.setBorder(BorderFactory.createEmptyBorder(15 ,15,15,15));
         title.setFont(new Font("Arial",Font.BOLD,20));
         frame.getContentPane().add(title,BorderLayout.NORTH);
+        title.setForeground(Color.decode("#4169E1"));
 
         JLabel label = label("Name:");
         JLabel label1 = label("Phone Number:");
@@ -178,6 +182,8 @@ public class Main {
         jframe.setTitle("Library Management System (LMS)");
         jframe.setLayout(new BorderLayout());
         jframe.setVisible(true);
+        jframe.setBackground(Color.white);
+        jframe.getContentPane().setBackground(Color.white);
         return jframe;
     }
     public static JLabel label(String text){
@@ -198,9 +204,11 @@ public class Main {
     }
     public static JButton button(String text){
         JButton button = new JButton(text);
-        button.setFont(new Font("Arial",Font.BOLD,17));
-        button.setForeground(Color.black);
+        button.setFont(new Font("Arial",Font.BOLD,15));
+        button.setForeground(Color.white);
         button.setHorizontalAlignment(SwingConstants.CENTER);
+        button.setBackground(Color.decode("#4169E1"));
+        button.setBorder(null);
         return button;
     }
     public static JRadioButton radioButton(String text){
@@ -209,6 +217,7 @@ public class Main {
         radioButton.setHorizontalAlignment(SwingConstants.CENTER);
         radioButton.setText(text);
         radioButton.setFont(new Font("Arial",Font.BOLD,17));
+        radioButton.setBackground(null);
         return radioButton;
     }
     public static JLabel title(String text){
@@ -216,6 +225,7 @@ public class Main {
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(15 ,15,15,15));
         title.setFont(new Font("Arial",Font.BOLD,20));
+        title.setForeground(Color.decode("#4169E1"));
         return title;
     }
 }

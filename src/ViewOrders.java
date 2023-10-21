@@ -15,6 +15,7 @@ public class ViewOrders implements IOOperation{
 
         JPanel panel = new JPanel(new GridLayout(2,2,15,15));
         panel.setBorder(BorderFactory.createEmptyBorder(0,20,20,20));
+        panel.setBackground(null);
 
         JLabel label = Main.label("Book Title:");
         JTextField book_title = Main.textField();
@@ -67,6 +68,7 @@ public class ViewOrders implements IOOperation{
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(rows, 4, 5, 5));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 30, 30, 30));
+        panel.setBackground(null);
 
         String[] first_row = new String[]{"Book", "User", "Quantity", "Price"};
         for (String str : first_row) {

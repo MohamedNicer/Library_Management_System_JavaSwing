@@ -16,6 +16,7 @@ public class ViewBook implements IOOperation{
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(rows, 7, 5, 5));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 30, 30, 30));
+        panel.setBackground(null);
 
         String[] first_row = new String[]{"Title", "Author", "Publisher", "Col-Add",
                 "Quantity", "Price", "Borr-Cps"};
