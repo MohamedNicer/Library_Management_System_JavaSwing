@@ -1,4 +1,4 @@
-# Library Management App
+# Library Management System LMS App
 
 Welcome to the Library Management App repository! This project showcases a JavaSwing-based application designed to manage a library system efficiently. This README will guide you through the functionalities, features, and setup instructions for running the application.
 
